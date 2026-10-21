@@ -1,0 +1,61 @@
+import { test, expect } from '@playwright/test';
+
+test.use({
+  storageState: 'auth.json'
+});
+
+test('test', async ({ page }) => {
+  await page.goto('https://releases-iastracking.link/workshops/');
+  await page.getByRole('button', { name: 'Aceptar' }).click();
+  await page.getByRole('heading', { name: 'Workshops' }).click();
+  await page.getByRole('button', { name: 'Add' }).click();
+  await page.getByTestId('title').click();
+  await page.getByTestId('title').fill('PRUEBA DE AUTOMATIZACION');
+  await page.getByTestId('description').click();
+  await page.getByTestId('description').press('CapsLock');
+  await page.getByTestId('description').fill('esta prueba se hace para que quede automatizada la funcionalidad');
+  await page.getByTestId('date').getByRole('button', { name: 'Choose Date' }).click();
+  await page.getByText('21', { exact: true }).click();
+  await page.getByTestId('startTime').getByRole('button', { name: 'Seleccione' }).click();
+  await page.getByText('3:00 PM').click();
+  await page.getByTestId('duration').getByRole('button', { name: 'Seleccione' }).click();
+  await page.getByText('1 hora').click();
+  await page.getByRole('checkbox', { name: 'Workshop de interés general' }).check();
+  await page.getByText('Workshop de interés general').click();
+  await page.getByRole('checkbox', { name: 'Workshop de interés general' }).uncheck();
+  await page.getByRole('checkbox', { name: 'Workshop de interés general' }).check();
+  await page.locator('#technologies > .p-multiselect-trigger > .p-icon > path').click();
+  await page.getByRole('option', { name: 'Java', exact: true }).locator('input[type="checkbox"]').check();
+  await page.getByRole('button', { name: 'Choose', exact: true }).click();
+  await page.getByRole('option', { name: 'Carlos Lugo' }).click();
+  await page.getByRole('button', { name: 'Crear workshop' }).click();
+  await page.getByText('Registro Exitoso').click();
+  await page.getByText('Se creó el workshop').click();
+  await page.getByRole('button', { name: 'Buscar' }).click();
+  await page.getByText('Interés general').first().click();
+  await page.getByRole('heading', { name: 'PRUEBA DE AUTOMATIZACION' }).click();
+  await page.getByText('esta prueba se hace para que').click();
+  await page.getByText('Fecha: 21/10/').click();
+  await page.getByText('Duración: 1 Hora').first().click();
+  await page.getByText('Hora de Inicio: 3:00 PM').click();
+  await page.getByText('Estado: Programado').first().click();
+  await page.getByText('Speaker: Carlos Lugo').first().click();
+  await page.getByTestId('edit-button').first().click();
+  await page.getByTestId('startTime').getByRole('button', { name: 'Seleccione' }).click();
+  await page.getByText('4:00 PM', { exact: true }).click();
+  await page.getByTestId('duration').getByRole('button', { name: 'Seleccione' }).click();
+  await page.getByText('2 horas', { exact: true }).click();
+  await page.getByRole('button', { name: 'Editar workshop' }).click();
+  await page.getByText('Actualización Exitosa').click();
+  await page.getByText('Se actualizó el workshop').click();
+  await page.getByRole('heading', { name: 'PRUEBA DE AUTOMATIZACION' }).click();
+  await page.locator('span').filter({ hasText: 'Interés general' }).first().click();
+  await page.getByText('Java').click();
+  await page.getByText('esta prueba se hace para que').click();
+  await page.getByText('Fecha: 21/10/').click();
+  await page.getByText('Duración: 2 Horas').first().click();
+  await page.getByText('Hora de Inicio: 4:00 PM').first().click();
+  await page.getByText('Estado: Programado').first().click();
+  await page.getByText('Speaker: Carlos Lugo').first().click();
+  await page.getByRole('heading', { name: 'Workshops' }).click();
+});
