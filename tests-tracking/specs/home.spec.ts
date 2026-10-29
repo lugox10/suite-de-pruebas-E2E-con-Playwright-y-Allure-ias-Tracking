@@ -3,17 +3,15 @@ import { HomePage } from '../pages/HomePage';
 import { MenuPage } from '../pages/MenuPage';
 import { test, expect } from '../fixtures';
 
-
-
 test.describe('Home - Navegación', () => {
   test.beforeEach(async () => {
-    await allure.epic('Home');
-    await allure.feature('Navegación principal');
+    await allure.label('epic', 'Home');
+    await allure.label('feature', 'Navegación principal');
   });
 
   test('El navbar muestra los 3 menús principales', async ({ page }) => {
-    await allure.story('Navbar visible');
-    await allure.severity('critical');
+    await allure.label('story', 'Navbar visible');
+    await allure.label('severity', 'critical');
 
     const homePage = new HomePage(page);
     const menuPage = new MenuPage(page);
@@ -38,8 +36,8 @@ test.describe('Home - Navegación', () => {
   });
 
   test('Navegar a Talento > Registro', async ({ page }) => {
-    await allure.story('Navegación a Registro');
-    await allure.severity('normal');
+    await allure.label('story', 'Navegación a Registro');
+    await allure.label('severity', 'normal');
 
     const homePage = new HomePage(page);
     const menuPage = new MenuPage(page);

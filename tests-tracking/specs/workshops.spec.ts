@@ -7,8 +7,8 @@ import { WorkshopsPage, DatosWorkshop } from '../pages/WorkshopsPage';
 test.describe('Administración - Workshops', () => {
   
   test.beforeEach(async ({ page }) => {
-    await allure.epic('Administración');
-    await allure.feature('Módulo Workshops');
+    await allure.label('epic', 'Administración');
+    await allure.label('feature', 'Módulo Workshops');
 
     const homePage = new HomePage(page);
     const menuPage = new MenuPage(page);
@@ -22,8 +22,8 @@ test.describe('Administración - Workshops', () => {
   });
 
   test('Filtrar workshops y validar etiquetas de las tarjetas', async ({ page }) => {
-    await allure.story('Búsqueda y validación de UI');
-    await allure.severity('critical');
+    await allure.label('story', 'Búsqueda y validación de UI');
+    await allure.label('severity', 'critical');
 
     const workshopsPage = new WorkshopsPage(page);
 
@@ -50,8 +50,8 @@ test.describe('Administración - Workshops', () => {
   });
 
   test('Limpiar filtros de búsqueda', async ({ page }) => {
-    await allure.story('Limpiar filtros');
-    await allure.severity('normal');
+    await allure.label('story', 'Limpiar filtros');
+    await allure.label('severity', 'normal');
 
     const workshopsPage = new WorkshopsPage(page);
 
@@ -70,16 +70,16 @@ test.describe('Administración - Workshops', () => {
   });
 
   test('Crear un nuevo workshop y verificarlo en la lista', async ({ page }) => {
-    await allure.story('Crear workshop');
-    await allure.severity('critical');
+    await allure.label('story', 'Crear workshop');
+    await allure.label('severity', 'critical');
 
     const workshopsPage = new WorkshopsPage(page);
 
-     const datos: DatosWorkshop = {
+    const datos: DatosWorkshop = {
       titulo: 'PRUEBA DE AUTOMATIZACION, creacion del workshop',
       descripcion: 'esta prueba se hace para que quede automatizada la funcionalidad',
-      dia: '21',             // Deja el 28
-      hora: '6:00 PM',       // 👈 CAMBIA AQUÍ: Volvemos a la hora que sabemos que existe
+      dia: '21',
+      hora: '6:00 PM',
       duracion: '1 hora',
       tecnologia: 'Java',
       speaker: 'Carlos Lugo'
@@ -105,13 +105,10 @@ test.describe('Administración - Workshops', () => {
       });
     });
 
-    // 👇 NUEVO PASO: Igual que en tu chorizo, buscamos el workshop creado
     await test.step('3. Verificar que el workshop aparece en la lista', async (step) => {
-      // Hacemos clic en el botón buscar de la página principal
       await page.getByRole('button', { name: 'Buscar' }).click();
       await page.waitForTimeout(1000);
 
-      // Validamos que el título que creamos aparezca en pantalla
       await expect(page.getByRole('heading', { name: datos.titulo })).toBeVisible();
       
       await step.attach('06-workshop-en-la-lista.png', {
@@ -122,17 +119,15 @@ test.describe('Administración - Workshops', () => {
   });
 
   test('Editar un workshop existente', async ({ page }) => {
-    await allure.story('Editar workshop');
-    await allure.severity('normal');
+    await allure.label('story', 'Editar workshop');
+    await allure.label('severity', 'normal');
 
     const workshopsPage = new WorkshopsPage(page);
 
     await test.step('1. Buscar y abrir formulario de edición', async (step) => {
-      // Buscamos primero para asegurar que salgan resultados
       await page.getByRole('button', { name: 'Buscar' }).click();
       await page.waitForTimeout(1000);
       
-      // Abrimos el formulario del primer resultado
       await workshopsPage.abrirFormularioEditar();
       
       await step.attach('07-formulario-edicion.png', {

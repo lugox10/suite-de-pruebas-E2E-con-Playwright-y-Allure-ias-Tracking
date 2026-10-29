@@ -26,20 +26,24 @@ export class HomePage {
    * que un usuario entra al home. Lo cerramos si está visible, sin fallar
    * si no aparece.
    */
+   // Esperamos hasta 10 segundos a que el botón "Aceptar" sea visible
+     // IMPORTANTE: Esperamos a que el modal desaparezca de la pantalla después de hacer
+     //  clic en "Aceptar", para asegurarnos de que se cerró correctamente.
+     // Si pasan los 10 segundos y no apareció, asumimos que no hay modal y seguimos
    async dismissWelcomeModalIfVisible(timeoutMs = 10_000) {
     try {
-      // Esperamos hasta 10 segundos a que el botón "Aceptar" sea visible
+     
       await this.botonAceptarModal.waitFor({ state: 'visible', timeout: timeoutMs });
       
-      // Hacemos clic
+     
       await this.botonAceptarModal.click();
       
-      // IMPORTANTE: Esperamos a que el modal desaparezca de la pantalla
+    
       await this.botonAceptarModal.waitFor({ state: 'hidden', timeout: 5_000 });
       
       console.log('✅ Modal de seguimientos cerrado correctamente.');
-    } catch (error) {
-      // Si pasan los 10 segundos y no apareció, asumimos que no hay modal y seguimos
+    } catch {
+      
       console.log('ℹ️ Modal de seguimientos no apareció o ya estaba cerrado.');
     }
   }

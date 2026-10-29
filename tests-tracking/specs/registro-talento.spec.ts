@@ -1,20 +1,18 @@
-import { test, expect } from '../fixtures';
+import { test } from '../fixtures';
 import { allure } from 'allure-playwright';
 import { HomePage } from '../pages/HomePage';
 import { MenuPage } from '../pages/MenuPage';
 import { RegistroTalentoPage, DatosTalento } from '../pages/RegistroTalentoPage';
 
-
-
 test.describe('Módulo Talento - Registro', () => {
   test.beforeEach(async () => {
-    await allure.epic('Gestión de Talento');
-    await allure.feature('Registro de Talento');
+    await allure.label('epic', 'Gestión de Talento');
+    await allure.label('feature', 'Registro de Talento');
   });
 
   test('Abrir el formulario de registro y verificar campos', async ({ page }) => {
-    await allure.story('Formulario visible');
-    await allure.severity('critical');
+    await allure.label('story', 'Formulario visible');
+    await allure.label('severity', 'critical');
 
     const homePage = new HomePage(page);
     const menuPage = new MenuPage(page);
@@ -37,14 +35,14 @@ test.describe('Módulo Talento - Registro', () => {
   });
 
   test('Crear un talento con datos válidos', async ({ page }) => {
-    await allure.story('Crear talento');
-    await allure.severity('critical');
+    await allure.label('story', 'Crear talento');
+    await allure.label('severity', 'critical');
 
     const homePage = new HomePage(page);
     const menuPage = new MenuPage(page);
     const registroPage = new RegistroTalentoPage(page);
 
-       const datos: DatosTalento = {
+    const datos: DatosTalento = {
       nombre: 'Test Automatizado QA',
       correo: `qa.auto.${Date.now()}@ias.com.co`,
       cargo: 'Analista de Calidad',

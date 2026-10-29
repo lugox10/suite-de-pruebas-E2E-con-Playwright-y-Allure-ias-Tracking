@@ -7,11 +7,11 @@ test('login con OTP manual', async ({ page }) => {
   // ⏱️ 5 minutos solo para este test (por el OTP manual)
   test.setTimeout(300_000);
 
-  // 📊 Metadatos para el reporte de Allure
-  await allure.epic('Autenticación');
-  await allure.feature('Login');
-  await allure.story('Login con OTP manual');
-  await allure.severity('critical');
+  // 📊 Metadatos para el reporte de Allure (Nueva sintaxis)
+  await allure.label('epic', 'Autenticación');
+  await allure.label('feature', 'Login');
+  await allure.label('story', 'Login con OTP manual');
+  await allure.label('severity', 'critical');
   await allure.description(
     'Valida el flujo de login: usuario + contraseña + OTP, hasta llegar al dashboard.'
   );
@@ -25,7 +25,6 @@ test('login con OTP manual', async ({ page }) => {
       page.getByRole('heading', { name: 'Bienvenido a IAS Tracking' })
     ).toBeVisible();
 
-    // 📸 Evidencia adjunta al paso
     const shot = await page.screenshot();
     await step.attach('01-pantalla-login.png', {
       body: shot,
