@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test:security": "docker run --rm -v \"%cd%:/zap/wrk/:rw\" zaproxy/zap-stable zap-baseline.py -t https://releases-iastracking.link/ -r zap-baseline.html"
   },
   "keywords": [],
   "author": "",
